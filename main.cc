@@ -8,21 +8,22 @@
 
 using boost::asio::ip::tcp;
 
-std::string make_daytime_string() {
+std::string make_hello_world() {
   using namespace std; // For time_t, time and ctime;
-  time_t now = time(0);
-  return ctime(&now);
+  string ret = "<html><body>Hello, world!</body></html>";
+  return ret;
 }
 
 int main() {
   try {
     boost::asio::io_service io_service;
     
-    tcp::acceptor acceptor(io_service, tcp::endpoint(tcp::v4(), 13));
+    tcp::acceptor acceptor(io_service, tcp::endpoint(tcp::v4(), 35000));
     
     while (true) {
       tcp::socket socket(io_service);
-      acceptor.accept(socket);     std::string message = make_daytime_string();
+      acceptor.accept(socket);
+      std::string message = make_hello_world();
 
       boost::system::error_code ignored_error;
       boost::asio::write(socket, boost::asio::buffer(message), ignored_error);
