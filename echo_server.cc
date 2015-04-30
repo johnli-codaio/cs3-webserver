@@ -35,6 +35,7 @@ void session(tcp::socket sock)
         throw boost::system::system_error(error); // Some other error.
 
       boost::asio::write(sock, boost::asio::buffer(data, length));
+      sock.close();
     }
   }
   catch (std::exception& e)
