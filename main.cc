@@ -11,7 +11,7 @@ int main(int argc, char* argv[]) {
     ConfigManager config((const char*)argv[1]);
     int port = config.getPort();
     
-    run(port);
+    run(port, true);
     
     return 0;
 }

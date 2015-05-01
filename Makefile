@@ -1,6 +1,6 @@
 GTEST_DIR=gtest-1.7.0
 
-all: hello_world_server echo_server
+all: echo_server test
 
 clean: 
 	rm -rf *.o *~ hello_world_server echo_server clienttest test
