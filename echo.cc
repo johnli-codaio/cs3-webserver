@@ -11,7 +11,6 @@
 
 #include <cstdlib>
 #include <iostream>
-#include <thread>
 #include <utility>
 #include <boost/asio.hpp>
 
@@ -51,7 +50,7 @@ void server(boost::asio::io_service& io_service, unsigned short port)
   {
     tcp::socket sock(io_service);
     a.accept(sock);
-    std::thread(session, std::move(sock)).detach();
+    session(std::move(sock));
   }
 }
 

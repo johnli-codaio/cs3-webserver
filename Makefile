@@ -1,7 +1,7 @@
-all: hello_world_server echo_server test
+all: hello_world_server echo_server
 
 clean: 
-	rm -rf *.o *~ webserver echo_server
+	rm -rf *.o *~ hello_world_server echo_server
 
 config_parser.o: config_parser.cc
 	g++ -Wall -g -c -std=c++0x config_parser.cc
@@ -18,14 +18,17 @@ echo.o : echo.cc
 hello_world.o : hello_world.cc
 	g++ -Wall -g -c -std=c++0x hello_world.cc
 
+client.o : client.cc
+	g++ -Wall -g -c -std=c++0x client.cc
+
 ConfigManager.o : ConfigManager.cc
 	g++ -Wall -g -c -std=c++0x ConfigManager.cc
 	
-echo_server: echo.o main.o ConfigManager.o config_parser.o
+echo_server: echo.o main.o config_parser.o ConfigManager.o
 	g++ -std=c++0x -g -Wall echo.o main.o ConfigManager.o config_parser.o -o \
 	echo_server -lboost_system -lpthread
 
-hello_world_server:	main.o hello_world.o config_parser.o
+hello_world_server:	main.o ConfigManager.o config_parser.o hello_world.o
 	g++ -std=c++0x -g -Wall main.o hello_world.o ConfigManager.o \
 	config_parser.o -o hello_world_server -lboost_system 
 
