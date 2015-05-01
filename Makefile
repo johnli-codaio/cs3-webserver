@@ -43,6 +43,10 @@ clienttest: clienttest.o client.o ConfigManager.o config_parser.o echo.o
 
 
 test: echo_test.o config_parser.o client.o ConfigManager.o echo.o
-	g++ -std=c++0x -isystem ${GTEST_DIR}/include -I${GTEST_DIR} -pthread -c ${GTEST_DIR}/src/gtest-all.cc
+	g++ -std=c++0x -isystem ${GTEST_DIR}/include -I${GTEST_DIR} -pthread -c \
+	${GTEST_DIR}/src/gtest-all.cc
 	ar -rv libgtest.a gtest-all.o
-	g++ -std=c++0x -isystem ${GTEST_DIR}/include -pthread echo_test.o config_parser.o client.o ConfigManager.o echo.o ${GTEST_DIR}/src/gtest_main.cc libgtest.a -o test -lpthread -lboost_system
+	g++ -std=c++0x -isystem ${GTEST_DIR}/include -pthread echo_test.o \
+	config_parser.o client.o ConfigManager.o echo.o \
+	${GTEST_DIR}/src/gtest_main.cc libgtest.a -o test -lpthread -lboost_system
+	./test
