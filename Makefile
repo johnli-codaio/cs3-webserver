@@ -1,9 +1,9 @@
 GTEST_DIR=gtest-1.7.0
 
-all: echo_server test
+all: echo_server
 
 clean: 
-	rm -rf *.o *~ hello_world_server echo_server clienttest test
+	rm -rf *.o *~ hello_world_server echo_server clienttest test webserver
 
 config_parser.o: config_parser.cc
 	g++ -Wall -g -c -std=c++0x config_parser.cc
@@ -31,7 +31,7 @@ clienttest.o : clienttest.cc
 	
 echo_server: echo.o main.o config_parser.o ConfigManager.o
 	g++ -std=c++0x -g -Wall echo.o main.o ConfigManager.o config_parser.o -o \
-	echo_server -lboost_system -lpthread
+	webserver -lboost_system -lpthread
 
 hello_world_server:	main.o ConfigManager.o config_parser.o hello_world.o
 	g++ -std=c++0x -g -Wall main.o hello_world.o ConfigManager.o \
