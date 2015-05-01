@@ -1,1 +1,1 @@
-char* send(char*, char*, char*);
+char* send(const char*, const char*, const char*);

@@ -17,7 +17,7 @@ using boost::asio::ip::tcp;
 
 enum { max_length = 1024 };
 
-char* send(char* host, char* port, char* request)
+char* send(const char* host, const char* port, const char* request)
 {
   char reply[max_length];
   try
