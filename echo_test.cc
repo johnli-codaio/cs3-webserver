@@ -2,33 +2,21 @@
 #include "config_parser.h"
 #include <sstream>
 #include <string>
+#include <thread>
+#include "client.h"
+#include "ConfigManager.h"
+#include "server.h"
 
 using namespace std;
 
-// Initial test that was already given
-TEST(NginxConfigParserTest, SimpleConfig) {
-  string first = "<html><body>Hello, world!</body></html>";
-
-  EXPECT_EQ("<html><body>Hello, world!</body></html>");
+TEST(EchoServerTest, SimpleEcho) {
+    const char* message = "foobar";
+    ConfigManager config("example_config");
+    int port = config.getPort();
+    std::thread t(run, port, false);
+    char* reply = send("localhost", (std::to_string(port)).c_str(), message);
+    t.join();
+    EXPECT_TRUE(strcmp(message, reply));
 }
 
-// Initial test that was already given
-TEST(NginxConfigParserTest, SimpleConfig) {
-  string first = "<html><body>Test number 2</body></html>";
 
-  EXPECT_EQ("<html><body>Test number 2</body></html>");
-}
-
-// Initial test that was already given
-TEST(NginxConfigParserTest, SimpleConfig) {
-  string first = "<html><body>Test 3</body></html>";
-
-  EXPECT_EQ("<html><body>Test 3</body></html>");
-}
-
-// Initial test that was already given
-TEST(NginxConfigParserTest, SimpleConfig) {
-  string first = "<html><body>Test 4</body></html>";
-
-  EXPECT_EQ("<html><body>Test 4</body></html>");
-}

@@ -1,7 +1,9 @@
+GTEST_DIR=gtest-1.7.0
+
 all: hello_world_server echo_server
 
 clean: 
-	rm -rf *.o *~ hello_world_server echo_server clienttest
+	rm -rf *.o *~ hello_world_server echo_server clienttest test
 
 config_parser.o: config_parser.cc
 	g++ -Wall -g -c -std=c++0x config_parser.cc
@@ -10,7 +12,7 @@ main.o:	main.cc
 	g++ -Wall -std=c++0x -g -Wall -c main.cc
 
 echo_test.o: echo_test.cc
-	g++ -Wall -g -c -std=c++0x echo_test.cc
+	g++ -Wall -g -I gtest-1.7.0/include -c -std=c++0x echo_test.cc
 	
 echo.o : echo.cc
 	g++ -Wall -g -c -std=c++0x echo.cc
@@ -40,6 +42,7 @@ clienttest: clienttest.o client.o ConfigManager.o config_parser.o echo.o
 	config_parser.o echo.o  -o clienttest -lboost_system -lpthread
 
 
-test: echo_test.o
-	g++ -std=c++0x -g -Wall echo_test.o -o echo_test -lboost_system -lpthread
-	./echo_test
+test: echo_test.o config_parser.o client.o ConfigManager.o echo.o
+	g++ -std=c++0x -isystem ${GTEST_DIR}/include -I${GTEST_DIR} -pthread -c ${GTEST_DIR}/src/gtest-all.cc
+	ar -rv libgtest.a gtest-all.o
+	g++ -std=c++0x -isystem ${GTEST_DIR}/include -pthread echo_test.o config_parser.o client.o ConfigManager.o echo.o ${GTEST_DIR}/src/gtest_main.cc libgtest.a -o test -lpthread -lboost_system

@@ -43,24 +43,24 @@ void session(tcp::socket sock)
   }
 }
 
-void server(boost::asio::io_service& io_service, unsigned short port)
+void server(boost::asio::io_service& io_service, unsigned short port, bool cont)
 {
   tcp::acceptor a(io_service, tcp::endpoint(tcp::v4(), port));
-  for (;;)
+  do
   {
     tcp::socket sock(io_service);
     a.accept(sock);
     session(std::move(sock));
-  }
+  }while(cont);
 }
 
-void run(int port)
+void run(int port, bool cont)
 {
   try
   {
     boost::asio::io_service io_service;
 
-    server(io_service, port);
+    server(io_service, port, cont);
   }
   catch (std::exception& e)
   {

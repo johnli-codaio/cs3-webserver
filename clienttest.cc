@@ -11,7 +11,7 @@ int main (int argc, char* argv[]){
     }
     ConfigManager config((const char*)argv[1]);
     int port = config.getPort();
-    std::thread t(run, port);
+    std::thread t(run, port, false);
     std::cout << "server running ..... \n";
     
     char* reply = send("localhost", (std::to_string(port)).c_str(), argv[2]);

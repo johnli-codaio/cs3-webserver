@@ -1,3 +1,6 @@
+#ifndef _CONFIGMANAGER_H_INCLUDED
+#define _CONFIGMANAGER_H_INCLUDED
+
 #include "config_parser.h"
 
 class ConfigManager {
@@ -11,3 +14,5 @@ class ConfigManager {
     private:
     int getPort(NginxConfig&);
 };
+
+#endif

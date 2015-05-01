@@ -33,6 +33,7 @@ char* send(const char* host, const char* port, const char* request)
 
     size_t reply_length = boost::asio::read(s,
         boost::asio::buffer(reply, request_length));
+    s.close();
   }
   catch (std::exception& e)
   {
