@@ -10,6 +10,7 @@ class ConfigManager {
     ConfigManager(NginxConfig);
     ConfigManager(const char*);    
     int getPort() {return getPort(config);};
+    std::string getBaseDirectory(NginxConfig& config);
     
     private:
     int getPort(NginxConfig&);
