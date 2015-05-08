@@ -12,17 +12,24 @@ using boost::asio::ip::tcp;
  */
 class server {
 public:
-	server(int port);
+	server(int port, int server_type);
 	~server();
 	void session(tcp::socket sock);
 	void run(boost::asio::io_service& io_service);
-	void run2();
+	void call();
+	void hello_world();
+	void echo(tcp::socket sock);
+	void request_handler();
 
 private:
 	// port number
 	int port;
+
+	// server_types: 1 - hello world, 2 - echo, 3 - response
+	int server_type;
 };
 
 const int max_length = 1024;
+const std::string message = "<html><body>Hello, world!</body></html>";
 
 #endif 

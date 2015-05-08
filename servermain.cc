@@ -11,15 +11,16 @@ int main(int argc, char* argv[])
 {
   try
   {
-    if (argc != 2)
+    if (argc != 3)
     {
-      std::cerr << "Usage: blocking_tcp_echo_server <port>\n";
+      std::cerr << "Usage: blocking_tcp_echo_server <port> <server_type>\n";
+      std::cerr << "server_types: 1 - hello world, 2 - echo, 3 - response\n";
       return 1;
     }
 
-    server *serv = new server(std::atoi(argv[1]));
+    server *serv = new server(std::atoi(argv[1]), std::atoi(argv[2]));
 
-    serv->run2();
+    serv->call();
   }
   catch (std::exception& e)
   {
