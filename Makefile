@@ -28,6 +28,12 @@ ConfigManager.o : ConfigManager.cc
 	
 clienttest.o : clienttest.cc
 	g++ -Wall -g -c -std=c++0x clienttest.cc
+
+server.o : server.cc
+	g++ -Wall -g -c -std=c++0x server.cc
+
+servermain.o : servermain.cc
+	g++ -Wall -g -c -std=c++0x servermain.cc
 	
 echo_server: echo.o main.o config_parser.o ConfigManager.o
 	g++ -std=c++0x -g -Wall echo.o main.o ConfigManager.o config_parser.o -o \
@@ -50,3 +56,7 @@ test: echo_test.o config_parser.o client.o ConfigManager.o echo.o
 	config_parser.o client.o ConfigManager.o echo.o \
 	${GTEST_DIR}/src/gtest_main.cc libgtest.a -o test -lpthread -lboost_system
 	./test
+
+server: server.o servermain.o
+	g++ -Wall -g -std=c++0x server.o servermain.o -o server -lboost_system \
+	-lpthread
