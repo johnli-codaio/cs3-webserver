@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
     int port = config.getPort();
     
     // Run the server.
-    run(port);
+    run(port, true);
     
     return 0;
 }

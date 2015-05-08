@@ -3,6 +3,8 @@
 
 #include <boost/asio.hpp>
 
+using boost::asio::ip::tcp;
+
 /*
  * This server class is a pure virtual base class that will be used
  * in order to set up the general behavior that will be implemented
@@ -12,19 +14,15 @@ class server {
 public:
 	server(int port);
 	~server();
-	virtual void session(boost::asio::ip::tcp::socket sock) = 0;
-	void listen();
-	void run();
+	void session(tcp::socket sock);
+	void run(boost::asio::io_service& io_service);
+	void run2();
 
 private:
 	// port number
 	int port;
-
-	// io_service to handle all io operations
-	//boost::asio::io_service io_service;
-
-	// acceptor that is used to let the server accept requests
-	//boost::asio::ip::tcp::acceptor acceptor;
 };
+
+const int max_length = 1024;
 
 #endif 
