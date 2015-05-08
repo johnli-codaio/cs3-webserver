@@ -29,5 +29,4 @@ void run(int port) {
     catch (std::exception& e) {
         std::cerr << e.what() << std::endl;
     }
-    
 }
