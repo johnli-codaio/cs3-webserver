@@ -2,6 +2,7 @@ foo "bar";
 
 server {
   listen   35001;
+  base ~/cs3/cs3-webserver;
   server_name foo.com;
   root /home/ubuntu/sites/foo/;
 }
