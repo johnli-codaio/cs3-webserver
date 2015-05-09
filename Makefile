@@ -69,7 +69,6 @@ test: echo_test.o config_parser.o client.o ConfigManager.o echo.o
 	${GTEST_DIR}/src/gtest_main.cc libgtest.a -o test -lpthread -lboost_system
 	./test
 
-server: server.o servermain.o config_parser.o ConfigManager.o request_handler.o mime_types.o reply.o file_types.o
+server: server.o servermain.o config_parser.o ConfigManager.o
 	g++ -Wall -g -std=c++0x server.o servermain.o ConfigManager.o \
-	config_parser.o request_handler.o mime_types.o reply.o file_types.o \
-	-o server -lboost_system -lpthread
+	config_parser.o -o server -lboost_system -lpthread
