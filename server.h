@@ -2,6 +2,8 @@
 #define _SERVER_H_INCLUDED
 
 #include <boost/asio.hpp>
+#include <string>
+#include "config_parser.h"
 
 using boost::asio::ip::tcp;
 
@@ -12,14 +14,30 @@ using boost::asio::ip::tcp;
  */
 class server {
 public:
+	// Constructor
 	server(int port, int server_type);
+	// Destructor
 	~server();
-	void session(tcp::socket sock);
+
+	// General functions to run the server
+	void session(tcp::socket sock, std::string request);
 	void run(boost::asio::io_service& io_service);
 	void call();
+	
+	// Specific handler types
+
+	// Hello world handler
 	void hello_world();
+
+	// Echo handler
 	void echo(tcp::socket sock);
-	void request_handler();
+
+	// Request handler
+	void request_handler(tcp::socket sock);
+
+	// Helper functions for request_handler
+	std::string getResponse(std::string request);
+	bool in_dir (const std::string& name);
 
 private:
 	// port number
