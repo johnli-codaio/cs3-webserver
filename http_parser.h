@@ -4,6 +4,5 @@
 #include "reques_handler.h"
 
 HTTPRequest parseRequest(std::string request);
-std::string unparseRequest(HTTPRequest request);
 
 #endif
