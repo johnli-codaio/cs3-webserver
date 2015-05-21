@@ -24,6 +24,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+#include "config_parser.h"
 
 struct HTTPRequest {
   // The method of request (e.g. GET, HEAD, etc).
@@ -33,7 +34,7 @@ struct HTTPRequest {
   std::string path;
 
   // Parsed headers (in order).
-  std::vector<std::pair<std::string, std::string>> headers;
+  std::vector<std::pair<std::string, std::string> > headers;
 
   // The body of the request.
   std::string request_body;
