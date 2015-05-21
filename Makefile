@@ -28,6 +28,12 @@ ConfigManager.o : ConfigManager.cc
 	
 clienttest.o : clienttest.cc
 	g++ -Wall -g -c -std=c++0x clienttest.cc
+
+echo_handler.o : echo_handler.cc
+	g++ -Wall -g -c -std=c++0x echo_handler.cc
+
+echo_handler_unparser_tests.o : echo_handler_unparser_tests.cc
+	g++ -Wall -g -c -std=c++0x echo_handler_unparser_tests.cc
 	
 echo_server: echo.o main.o config_parser.o ConfigManager.o
 	g++ -std=c++0x -g -Wall echo.o main.o ConfigManager.o config_parser.o -o \
@@ -50,3 +56,7 @@ test: echo_test.o config_parser.o client.o ConfigManager.o echo.o
 	config_parser.o client.o ConfigManager.o echo.o \
 	${GTEST_DIR}/src/gtest_main.cc libgtest.a -o test -lpthread -lboost_system
 	./test
+
+unparser_test: config_parser.o echo_handler_unparser_tests.o ConfigManager.o echo_handler.o
+	g++ -Wall -g -std=c++0x config_parser.o ConfigManager.o echo_handler.o \
+	echo_handler_unparser_tests.o -o unparser_test -lboost_system -lpthread

@@ -10,19 +10,19 @@ std::string EchoHandler::HandleRequest(const HTTPRequest& req) {
 }
 
 std::string EchoHandler::unparse(const HTTPRequest& req) {
-  string unparsed = "";
+  std::string unparsed = "";
 
-  unparsed += method + " ";
-  unparsed += path + " HTTP/1.1\n";
-  int num_headers = headers.size();
+  unparsed += req.method + " ";
+  unparsed += req.path + " HTTP/1.1\n";
+  int num_headers = req.headers.size();
 
   for (int i = 0; i < num_headers; ++i) {
-  	unparsed += headers[i].first + ": " + headers[i].second + "\n";
+  	unparsed += req.headers[i].first + ": " + req.headers[i].second + "\n";
   }
 
   unparsed += "\n";
 
-  unparsed += request_body;
+  unparsed += req.request_body;
 
   return unparsed;
 };
