@@ -5,7 +5,8 @@ void StaticHandler::Configure(const NginxConfig& child_config_block) {
 }
 
 std::string StaticHandler::HandleRequest(const HTTPRequest& req) {
-  std::string filename = path + req.path;
+  std::string subpath = req.path.substr(req.path.find('/',1), string::npos);
+  std::string filename = path + subpath;
   struct stat buffer;   
   bool found = (stat (filename.c_str(), &buffer) == 0);
   if (found) {
