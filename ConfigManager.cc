@@ -7,7 +7,7 @@ ConfigManager::ConfigManager(const char* file_name) {
     config_parser.Parse(file_name, &config);
 }
 
-std::list<NginxConfig*> ConfigManager::getConfigs(const NginxConfig& config) {
+std::vector<std::shared_ptr<NginxConfigStatement>> ConfigManager::getConfigs(const NginxConfig& config) {
  //TODO implement
  return NULL;
 }

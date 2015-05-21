@@ -4,7 +4,7 @@
 #include "request_handler.h"
 class HelloWorldHandler: public RequestHandler {
   public:
-    const std::string message = "<html><body>Hello, world!</body></html>";
+    const static std::string message;
     void Configure(const NginxConfig& child_config_block);
     std::string HandleRequest(const HTTPRequest& req);
 };
