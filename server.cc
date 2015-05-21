@@ -117,7 +117,7 @@ void server::echo(tcp::socket sock){
 // This function handles the request handling server.
 void server::request_handler(tcp::socket sock) {
   std::string response;
-  response = getResponse("/chad.txt");
+  response = getResponse("/wayne.jpg");
   boost::asio::write(sock, boost::asio::buffer(response));
 }
 
@@ -125,7 +125,7 @@ void server::request_handler(tcp::socket sock) {
 // the contents of the file requested, or a 404 error if the file does
 // not exist.  Modelled on method used by Megan Keehan and Eric Gorlin.
 std::string server::getResponse(std::string request) {
-  std::string static_path = "/home/connorjcrowley/cs3/cs3-webserver";
+  std::string static_path = "/home/jack/cs3/webserver";
   std::string requested_file;
 
   if (in_dir(static_path + request)) {
