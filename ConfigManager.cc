@@ -7,6 +7,7 @@ ConfigManager::ConfigManager(const char* file_name) {
     config_parser.Parse(file_name, &config);
 }
 
+
 int ConfigManager::getPort(NginxConfig& config) {
     int port = -1;
     for (const auto& statement : config.statements_){
