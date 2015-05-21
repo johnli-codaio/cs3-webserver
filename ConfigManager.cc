@@ -7,6 +7,16 @@ ConfigManager::ConfigManager(const char* file_name) {
     config_parser.Parse(file_name, &config);
 }
 
+std::list<NginxConfig*> ConfigManager::getConfigs(const NginxConfig& config) {
+ //TODO implement
+ return NULL;
+}
+
+std::string ConfigManager::getPath(const NginxConfig& config) {
+  //TODO impement
+  return NULL
+}
+
 
 int ConfigManager::getPort(NginxConfig& config) {
     int port = -1;

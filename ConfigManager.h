@@ -16,10 +16,10 @@ class ConfigManager {
     private:
     int getPort(NginxConfig&);
     // get the config statement for each handler type, all collected into a list
-    std::list<NginxConfig*> getConfigs(NginxConfig*);
+    std::list<NginxConfig*> getConfigs(const NginxConfig& config);
     // get the static path given a NginxConfig with a childblock containing
     // root binding.
-    std::string getPath(NginxConfig*);
+    static std::string getPath(const NginxConfig& config);
 };
 
 #endif
