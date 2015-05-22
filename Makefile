@@ -37,6 +37,9 @@ echo_handler_unparser_tests.o : echo_handler_unparser_tests.cc
 
 http_parser_tests.o : http_parser_tests.cc
 	g++ -Wall -g -c -std=c++0x http_parser_tests.cc
+
+http_parser.o : http_parser.cc
+	g++ -Wall -g -c -std=c++0x http_parser.cc
 	
 echo_server: echo.o main.o config_parser.o ConfigManager.o
 	g++ -std=c++0x -g -Wall echo.o main.o ConfigManager.o config_parser.o -o \

@@ -8,8 +8,8 @@ ConfigManager::ConfigManager(const char* file_name) {
     config_parser.Parse(file_name, &config);
 }
 
-std::vector<NginxConfigStatement*> ConfigManager::getConfigs(const NginxConfig& config) {
-  std::vector<NginxConfigStatement*> vect;
+std::vector<std::shared_ptr<NginxConfigStatement> > ConfigManager::getConfigs(const NginxConfig& config) {
+  std::vector<std::shared_ptr<NginxConfigStatement> > vect;
   return vect;
 }
 
