@@ -36,9 +36,6 @@ ConfigManager.o : ConfigManager.cc
 clienttest.o : clienttest.cc
 	g++ -Wall -g -c -std=c++0x clienttest.cc
 
-echo_handler.o : echo_handler.cc
-	g++ -Wall -g -c -std=c++0x echo_handler.cc
-
 echo_handler_unparser_tests.o : echo_handler_unparser_tests.cc
 	g++ -Wall -g -c -std=c++0x echo_handler_unparser_tests.cc
 
