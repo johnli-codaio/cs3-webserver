@@ -8,18 +8,28 @@ ConfigManager::ConfigManager(const char* file_name) {
     config_parser.Parse(file_name, &config);
 }
 
-std::vector<std::shared_ptr<NginxConfigStatement> > ConfigManager::getConfigs(const NginxConfig& config) {
-  std::vector<std::shared_ptr<NginxConfigStatement> > vect;
+std::vector<std::shared_ptr<NginxConfigStatement>> ConfigManager::getConfigs() {
+  std::vector<std::shared_ptr<NginxConfigStatement>> vect = std::vector<std::shared_ptr<NginxConfigStatement>>();
+  for (const std::shared_ptr<NginxConfigStatement>& statement : config.statements_) {
+    std::cout << "First token is " << (statement->tokens_)[0] << std::endl;
+    if ((statement->tokens_)[0] == "handler") {
+      vect.push_back(statement);
+    }
+  }
   return vect;
 }
 
 std::string ConfigManager::getPath(const NginxConfig& config) {
-  //TODO impement
+  for (const std::shared_ptr<NginxConfigStatement>& statement : config.statements_) {
+    if ((statement->tokens_)[0] == "root") {
+      return statement->tokens_[1];
+    }
+  }
   return "";
 }
 
 
-int ConfigManager::getPort(NginxConfig& config) {
+int ConfigManager::getPort(const NginxConfig& config) {
     int port = -1;
     for (const auto& statement : config.statements_){
         bool listen = false;

@@ -6,6 +6,12 @@
 #include <boost/asio.hpp>
 #include <boost/thread/thread.hpp>
 #include <unordered_map>
+#include "helloworld_handler.h"
+#include "e404_handler.h"
+#include "echo_handler.h"
+#include "static_handler.h"
+#include "ConfigManager.h"
+#include "http_parser.h"
 
 using boost::asio::ip::tcp;
 
@@ -33,12 +39,12 @@ void session(socket_ptr sock)
       std::string request(data, length);
       std::string binding = request.substr(0, request.find('/', 1));
       std::string response;
-      if (handlers.find(binding) != unordered_map::end ) {
+      if (handlers.find(binding) == handlers.end() ) {
         binding = "404";
       }
       response = handlers[binding] -> HandleRequest(parseRequest(request));
 
-      boost::asio::write(*sock, boost::asio::buffer(data, length));
+      boost::asio::write(*sock, boost::asio::buffer(response, response.size()));
     }
   }
   catch (std::exception& e)
@@ -68,20 +74,21 @@ int main(int argc, char* argv[]) {
     ConfigManager config((const char*)argv[1]);
     int port = config.getPort();
     
-    std::vector<NginxConfig*> handlerConfigs = config.getConfigs();
-    std::vector<NginxConfig*>::iterator it;
+    std::vector<std::shared_ptr<NginxConfigStatement>> handlerConfigs = config.getConfigs();
+    std::vector<std::shared_ptr<NginxConfigStatement>>::iterator it;
+    handlers = std::unordered_map<std::string,RequestHandler*>();
     
     for ( it = handlerConfigs.begin(); it != handlerConfigs.end(); it++) {
       std::string type = ((*it)->tokens_)[1];
       if (type.compare("helloworld") == 0) {
-        handlers[((*it)->tokens_)[2]] = new HelloWordHandler();
+        handlers[((*it)->tokens_)[2]] = new HelloWorldHandler();
       }
       else if (type.compare("echo") == 0) {
         handlers[((*it)->tokens_)[2]] = new EchoHandler();
       }
       else if (type.compare("static") == 0) {
         RequestHandler* handler = new StaticHandler();
-        handler->Config(*((*it)->child_block_));
+        handler->Configure(*((*it)->child_block_));
         handlers[((*it)->tokens_)[2]] = handler;
       }
       else {
@@ -89,14 +96,14 @@ int main(int argc, char* argv[]) {
       }
     }
     
-    handlers["404"] = new 404Handler;
+    handlers["404"] = new E404Handler();
     
     try
     {
       boost::asio::io_service io_service;
 
       using namespace std; // For atoi.
-      server(io_service, atoi(argv[1]));
+      server(io_service, port);
     }
     catch (std::exception& e)
     {

@@ -1,7 +1,27 @@
-foo "bar";
+# Expected config file format. Unlike the RequestHandler API, this format was
+# what not decided based on a vote :).
+#
+# Keywords:
+#   . listen
+#   . handler
+#   . static
+#   . echo
+#   . helloworld
+#   . <any other handlers you create>
+#   . <any keywords defined by handlers> (e.g. root)
 
-server {
-  listen   35001;
-  server_name foo.com;
-  root /home/ubuntu/sites/foo/;
+listen 1337;
+
+handler static /images {
+  root /home/jack/cs3/webserver/images;
+}
+
+handler static /html {
+  root /home/jack/cs3/webserver/html;
+}
+
+handler echo /copycat {
+}
+
+handler helloworld /hw2 {
 }

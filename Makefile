@@ -1,9 +1,24 @@
 GTEST_DIR=gtest-1.7.0
+OBJECTS = e404_handler.o helloworld_handler.o echo_handler.o static_handler.o \
+config_parser.o ConfigManager.o main.o http_parser.o
 
-all: echo_server
+all: webserver
 
 clean: 
-	rm -rf *.o *~ hello_world_server echo_server clienttest test webserver
+	rm -rf *.o *~ hello_world_server echo_server clienttest test webserver \
+	server
+
+e404_handler.o: e404_handler.cc
+	g++ -Wall -g -c -std=c++0x e404_handler.cc
+
+helloworld_handler.o: helloworld_handler.cc
+	g++ -Wall -g -c -std=c++0x helloworld_handler.cc
+
+echo_handler.o: echo_handler.cc
+	g++ -Wall -g -c -std=c++0x echo_handler.cc
+
+static_handler.o: static_handler.cc
+	g++ -Wall -g -c -std=c++0x static_handler.cc
 
 config_parser.o: config_parser.cc
 	g++ -Wall -g -c -std=c++0x config_parser.cc
@@ -13,15 +28,7 @@ main.o:	main.cc
 
 echo_test.o: echo_test.cc
 	g++ -Wall -g -I gtest-1.7.0/include -c -std=c++0x echo_test.cc
-	
-echo.o : echo.cc
-	g++ -Wall -g -c -std=c++0x echo.cc
-	
-hello_world.o : hello_world.cc
-	g++ -Wall -g -c -std=c++0x hello_world.cc
 
-client.o : client.cc
-	g++ -Wall -g -c -std=c++0x client.cc
 
 ConfigManager.o : ConfigManager.cc
 	g++ -Wall -g -c -std=c++0x ConfigManager.cc
@@ -41,17 +48,8 @@ http_parser_tests.o : http_parser_tests.cc
 http_parser.o : http_parser.cc
 	g++ -Wall -g -c -std=c++0x http_parser.cc
 	
-echo_server: echo.o main.o config_parser.o ConfigManager.o
-	g++ -std=c++0x -g -Wall echo.o main.o ConfigManager.o config_parser.o -o \
-	webserver -lboost_system -lpthread
-
-hello_world_server:	main.o ConfigManager.o config_parser.o hello_world.o
-	g++ -std=c++0x -g -Wall main.o hello_world.o ConfigManager.o \
-	config_parser.o -o hello_world_server -lboost_system
-	
-clienttest: clienttest.o client.o ConfigManager.o config_parser.o echo.o
-	g++ -Wall -g -std=c++0x clienttest.o client.o ConfigManager.o \
-	config_parser.o echo.o  -o clienttest -lboost_system -lpthread
+webserver: ${OBJECTS}
+	g++ -std=c++0x -g -Wall ${OBJECTS} -o webserver -lboost_system -lpthread
 
 test: echo_test.o config_parser.o client.o ConfigManager.o echo.o
 	g++ -std=c++0x -isystem ${GTEST_DIR}/include -I${GTEST_DIR} -pthread -c \
