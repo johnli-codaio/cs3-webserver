@@ -24,7 +24,7 @@ config_parser.o: config_parser.cc
 	g++ -Wall -g -c -std=c++0x config_parser.cc
 
 main.o:	main.cc
-	g++ -Wall -std=c++0x -g -Wall -c main.cc
+	g++ -Wall -std=c++0x -g -Wall -c main.cc -pthread
 
 echo_test.o: echo_test.cc
 	g++ -Wall -g -I gtest-1.7.0/include -c -std=c++0x echo_test.cc
@@ -46,7 +46,7 @@ http_parser.o : http_parser.cc
 	g++ -Wall -g -c -std=c++0x http_parser.cc
 	
 webserver: ${OBJECTS}
-	g++ -std=c++0x -g -Wall ${OBJECTS} -o webserver -lboost_system -lpthread
+	g++ -std=c++0x -g -Wall ${OBJECTS} -o webserver -lboost_system -lboost_thread -pthread
 
 test: echo_test.o config_parser.o client.o ConfigManager.o echo.o
 	g++ -std=c++0x -isystem ${GTEST_DIR}/include -I${GTEST_DIR} -pthread -c \

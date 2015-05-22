@@ -11,7 +11,6 @@ ConfigManager::ConfigManager(const char* file_name) {
 std::vector<std::shared_ptr<NginxConfigStatement>> ConfigManager::getConfigs() {
   std::vector<std::shared_ptr<NginxConfigStatement>> vect = std::vector<std::shared_ptr<NginxConfigStatement>>();
   for (const std::shared_ptr<NginxConfigStatement>& statement : config.statements_) {
-    std::cout << "First token is " << (statement->tokens_)[0] << std::endl;
     if ((statement->tokens_)[0] == "handler") {
       vect.push_back(statement);
     }

@@ -10,7 +10,7 @@
 #   . <any other handlers you create>
 #   . <any keywords defined by handlers> (e.g. root)
 
-listen 1337;
+listen 35000;
 
 handler static /images {
   root /home/jack/cs3/webserver/images;
