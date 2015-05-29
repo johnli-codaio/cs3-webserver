@@ -32,6 +32,9 @@ main.o:	main.cc
 echo_test.o: echo_test.cc
 	g++ -Wall -g -I gtest-1.7.0/include -c -std=c++0x echo_test.cc
 
+proxy_test.o: proxy_test.cc
+	g++ -Wall -g -I gtest-1.7.0/include -c -std=c++0x proxy_test.cc
+
 
 ConfigManager.o : ConfigManager.cc
 	g++ -Wall -g -c -std=c++0x ConfigManager.cc
@@ -51,7 +54,7 @@ http_parser.o : http_parser.cc
 webserver: ${OBJECTS}
 	g++ -std=c++0x -g -Wall ${OBJECTS} -o webserver -lboost_system -lboost_thread -pthread
 
-test: echo_test.o config_parser.o client.o ConfigManager.o echo.o
+test: proxy_test.o echo_test.o config_parser.o client.o ConfigManager.o echo.o
 	g++ -std=c++0x -isystem ${GTEST_DIR}/include -I${GTEST_DIR} -pthread -c \
 	${GTEST_DIR}/src/gtest-all.cc
 	ar -rv libgtest.a gtest-all.o
