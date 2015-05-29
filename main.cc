@@ -15,6 +15,7 @@
 #include <boost/asio.hpp>
 #include <unordered_map>
 #include "helloworld_handler.h"
+#include "proxy_handler.h"
 #include "e404_handler.h"
 #include "echo_handler.h"
 #include "static_handler.h"
@@ -95,6 +96,11 @@ int main(int argc, char* argv[])
       }
       else if (type.compare("static") == 0) {
         RequestHandler* handler = new StaticHandler();
+        handler->Configure(*((*it)->child_block_));
+        handlers[((*it)->tokens_)[2]] = handler;
+      }
+      else if (type.compare("proxy") == 0) {
+        ProxyHandler* handler = new ProxyHandler();
         handler->Configure(*((*it)->child_block_));
         handlers[((*it)->tokens_)[2]] = handler;
       }

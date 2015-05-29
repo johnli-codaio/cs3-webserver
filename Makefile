@@ -1,6 +1,6 @@
 GTEST_DIR=gtest-1.7.0
 OBJECTS = e404_handler.o helloworld_handler.o echo_handler.o static_handler.o \
-config_parser.o ConfigManager.o main.o http_parser.o
+config_parser.o proxy_handler.o ConfigManager.o main.o http_parser.o
 
 all: webserver
 
@@ -19,6 +19,9 @@ echo_handler.o: echo_handler.cc
 
 static_handler.o: static_handler.cc
 	g++ -Wall -g -c -std=c++0x static_handler.cc
+
+proxy_handler.o: proxy_handler.cc
+	g++ -Wall -g -c -std=c++0x proxy_handler.cc
 
 config_parser.o: config_parser.cc
 	g++ -Wall -g -c -std=c++0x config_parser.cc

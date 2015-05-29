@@ -21,7 +21,9 @@ handler static /html {
 }
 
 handler echo /copycat {
+ TODO;
 }
 
 handler helloworld /hw2 {
+ TODO;
 }
